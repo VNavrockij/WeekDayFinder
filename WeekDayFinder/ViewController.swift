@@ -21,18 +21,21 @@ class ViewController: UIViewController {
         let calendar = Calendar.current
         
         var dateComponents = DateComponents()
-        dateComponents.day = Int(dateTF.text!)
-        dateComponents.month = Int(monthTF.text!)
-        dateComponents.year = Int(yearTF.text!)
+        guard let day = dateTF.text, let month = monthTF.text, let year = yearTF.text else  { return }
+        dateComponents.day = Int(day)
+        dateComponents.month = Int(month)
+        dateComponents.year = Int(year)
         
-        let date = calendar.date(from: dateComponents)
+        guard let date = calendar.date(from: dateComponents) else { return }
         
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ru_Ru")
         dateFormatter.dateFormat = "EEEE"
         
-        let weekDay = dateFormatter.string(from: date!)
+        let weekDay = dateFormatter.string(from: date)
+        let capitalizedWeekday = weekDay.capitalized
         
-        resultLable.text = weekDay
+        resultLable.text = capitalizedWeekday
 
         
     }
